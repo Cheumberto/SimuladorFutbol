@@ -52,7 +52,6 @@
       <p class="text-xs text-emerald-100 mt-1 font-bold drop-shadow">Elige los 11 titulares para cada equipo</p>
     </header>
 
-    <!-- Contenedor general de equipos (Columnas en móviles, Filas en pantallas medianas+) -->
     <div class="flex flex-col sm:flex-row gap-4 my-2 sm:my-4 flex-1 overflow-hidden min-h-0">
 
       <!-- Equipo A -->
@@ -240,104 +239,109 @@
       </span>
     </div>
 
-    <!-- Panel de Cambios - Equipo A (Esquina inferior izquierda o apilado en móvil) -->
-    <div class="absolute bottom-3 left-3 sm:bottom-8 sm:left-8 z-30 bg-slate-950/90 backdrop-blur border border-blue-600/40 rounded-2xl w-56 sm:w-64 shadow-2xl overflow-hidden transition-all">
-      <button 
-        (click)="mostrarCambiosA.set(!mostrarCambiosA())"
-        class="w-full p-2.5 sm:p-3 flex justify-between items-center text-left hover:bg-blue-900/25 transition-colors cursor-pointer">
-        <div class="flex items-center gap-1.5 sm:gap-2">
-          <span class="text-xs font-black text-blue-400 truncate max-w-[120px] sm:max-w-none">Cambios {{ partidoService.equipoA().nombre }}</span>
-          <span class="text-[9px] bg-blue-900/60 text-blue-200 px-1.5 py-0.5 rounded font-bold shrink-0">
-            {{ partidoService.equipoA().cambios }} rest.
-          </span>
-        </div>
-        <span class="text-xs text-blue-400 font-bold transition-transform duration-200" [class.rotate-180]="mostrarCambiosA()">
-          ▼
-        </span>
-      </button>
+    <!-- CONTENEDOR INFERIOR DE CAMBIOS (Fila en móvil para evitar solapamiento / Absoluto en Desktop) -->
+    <div class="absolute bottom-2 left-2 right-2 sm:bottom-0 sm:left-0 sm:right-0 z-30 flex sm:block justify-between gap-2 pointer-events-none">
 
-      <div *ngIf="mostrarCambiosA()" class="p-2.5 sm:p-3 pt-0 border-t border-blue-500/20">
-        <div class="grid grid-cols-2 gap-1.5 text-[10px] mt-2">
-          <div>
-            <label class="text-[9px] text-red-400 font-bold block mb-0.5">SALE:</label>
-            <select 
-              [ngModel]="jugador_salida_A()" 
-              (ngModelChange)="jugador_salida_A.set($event)"
-              class="w-full bg-slate-800 border border-slate-700 rounded p-1 text-slate-200 text-xs">
-              <option [ngValue]="null">Seleccionar</option>
-              <option *ngFor="let j of partidoService.equipoA().jugadores" [ngValue]="j">{{ j.nombre }}</option>
-            </select>
-          </div>
-
-          <div>
-            <label class="text-[9px] text-emerald-400 font-bold block mb-0.5">ENTRA:</label>
-            <select 
-              [ngModel]="jugador_entrada_A()" 
-              (ngModelChange)="jugador_entrada_A.set($event)"
-              class="w-full bg-slate-800 border border-slate-700 rounded p-1 text-slate-200 text-xs">
-              <option [ngValue]="null">Seleccionar</option>
-              <option *ngFor="let j of partidoService.equipoA().banca" [ngValue]="j">{{ j.nombre }}</option>
-            </select>
-          </div>
-        </div>
-
+      <!-- Panel de Cambios - Equipo A -->
+      <div class="pointer-events-auto sm:absolute sm:bottom-8 sm:left-8 bg-slate-950/95 backdrop-blur border border-blue-600/40 rounded-2xl flex-1 sm:w-64 shadow-2xl overflow-hidden transition-all">
         <button 
-          (click)="hacer_cambio('equipoA')"
-          [disabled]="!partidoService.segunda_mitad()"
-          class="w-full mt-2.5 bg-blue-600 hover:bg-blue-500 disabled:bg-slate-800 disabled:opacity-50 text-white font-bold py-1.5 rounded text-[10px] transition-all cursor-pointer">
-          Realizar Cambio
-        </button>
-      </div>
-    </div>
-
-    <!-- Panel de Cambios - Equipo B (Esquina inferior derecha o apilado en móvil) -->
-    <div class="absolute bottom-3 right-3 sm:bottom-8 sm:right-8 z-30 bg-slate-950/90 backdrop-blur border border-red-600/40 rounded-2xl w-56 sm:w-64 shadow-2xl overflow-hidden transition-all">
-      <button 
-        (click)="mostrarCambiosB.set(!mostrarCambiosB())"
-        class="w-full p-2.5 sm:p-3 flex justify-between items-center text-left hover:bg-red-900/25 transition-colors cursor-pointer">
-        <div class="flex items-center gap-1.5 sm:gap-2">
-          <span class="text-xs font-black text-red-400 truncate max-w-[120px] sm:max-w-none">Cambios {{ partidoService.equipoB().nombre }}</span>
-          <span class="text-[9px] bg-red-900/60 text-red-200 px-1.5 py-0.5 rounded font-bold shrink-0">
-            {{ partidoService.equipoB().cambios }} rest.
+          (click)="mostrarCambiosA.set(!mostrarCambiosA())"
+          class="w-full p-2 sm:p-3 flex justify-between items-center text-left hover:bg-blue-900/25 transition-colors cursor-pointer">
+          <div class="flex items-center gap-1.5 sm:gap-2 min-w-0">
+            <span class="text-[11px] sm:text-xs font-black text-blue-400 truncate">Cambios {{ partidoService.equipoA().nombre }}</span>
+            <span class="text-[9px] bg-blue-900/60 text-blue-200 px-1.5 py-0.5 rounded font-bold shrink-0">
+              {{ partidoService.equipoA().cambios }} rest.
+            </span>
+          </div>
+          <span class="text-xs text-blue-400 font-bold transition-transform duration-200 shrink-0 ml-1" [class.rotate-180]="mostrarCambiosA()">
+            ▼
           </span>
-        </div>
-        <span class="text-xs text-red-400 font-bold transition-transform duration-200" [class.rotate-180]="mostrarCambiosB()">
-          ▼
-        </span>
-      </button>
-
-      <div *ngIf="mostrarCambiosB()" class="p-2.5 sm:p-3 pt-0 border-t border-red-500/20">
-        <div class="grid grid-cols-2 gap-1.5 text-[10px] mt-2">
-          <div>
-            <label class="text-[9px] text-red-400 font-bold block mb-0.5">SALE:</label>
-            <select 
-              [ngModel]="jugador_salida_B()" 
-              (ngModelChange)="jugador_salida_B.set($event)"
-              class="w-full bg-slate-800 border border-slate-700 rounded p-1 text-slate-200 text-xs">
-              <option [ngValue]="null">Seleccionar</option>
-              <option *ngFor="let j of partidoService.equipoB().jugadores" [ngValue]="j">{{ j.nombre }}</option>
-            </select>
-          </div>
-
-          <div>
-            <label class="text-[9px] text-emerald-400 font-bold block mb-0.5">ENTRA:</label>
-            <select 
-              [ngModel]="jugador_entrada_B()" 
-              (ngModelChange)="jugador_entrada_B.set($event)"
-              class="w-full bg-slate-800 border border-slate-700 rounded p-1 text-slate-200 text-xs">
-              <option [ngValue]="null">Seleccionar</option>
-              <option *ngFor="let j of partidoService.equipoB().banca" [ngValue]="j">{{ j.nombre }}</option>
-            </select>
-          </div>
-        </div>
-
-        <button 
-          (click)="hacer_cambio('equipoB')"
-          [disabled]="!partidoService.segunda_mitad()"
-          class="w-full mt-2.5 bg-red-600 hover:bg-red-500 disabled:bg-slate-800 disabled:opacity-50 text-white font-bold py-1.5 rounded text-[10px] transition-all cursor-pointer">
-          Realizar Cambio
         </button>
+
+        <div *ngIf="mostrarCambiosA()" class="p-2.5 sm:p-3 pt-0 border-t border-blue-500/20">
+          <div class="grid grid-cols-2 gap-1.5 text-[10px] mt-2">
+            <div>
+              <label class="text-[9px] text-red-400 font-bold block mb-0.5">SALE:</label>
+              <select 
+                [ngModel]="jugador_salida_A()" 
+                (ngModelChange)="jugador_salida_A.set($event)"
+                class="w-full bg-slate-800 border border-slate-700 rounded p-1 text-slate-200 text-xs">
+                <option [ngValue]="null">Seleccionar</option>
+                <option *ngFor="let j of partidoService.equipoA().jugadores" [ngValue]="j">{{ j.nombre }}</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="text-[9px] text-emerald-400 font-bold block mb-0.5">ENTRA:</label>
+              <select 
+                [ngModel]="jugador_entrada_A()" 
+                (ngModelChange)="jugador_entrada_A.set($event)"
+                class="w-full bg-slate-800 border border-slate-700 rounded p-1 text-slate-200 text-xs">
+                <option [ngValue]="null">Seleccionar</option>
+                <option *ngFor="let j of partidoService.equipoA().banca" [ngValue]="j">{{ j.nombre }}</option>
+              </select>
+            </div>
+          </div>
+
+          <button 
+            (click)="hacer_cambio('equipoA')"
+            [disabled]="!partidoService.segunda_mitad()"
+            class="w-full mt-2.5 bg-blue-600 hover:bg-blue-500 disabled:bg-slate-800 disabled:opacity-50 text-white font-bold py-1.5 rounded text-[10px] transition-all cursor-pointer">
+            Realizar Cambio
+          </button>
+        </div>
       </div>
+
+      <!-- Panel de Cambios - Equipo B -->
+      <div class="pointer-events-auto sm:absolute sm:bottom-8 sm:right-8 bg-slate-950/95 backdrop-blur border border-red-600/40 rounded-2xl flex-1 sm:w-64 shadow-2xl overflow-hidden transition-all">
+        <button 
+          (click)="mostrarCambiosB.set(!mostrarCambiosB())"
+          class="w-full p-2 sm:p-3 flex justify-between items-center text-left hover:bg-red-900/25 transition-colors cursor-pointer">
+          <div class="flex items-center gap-1.5 sm:gap-2 min-w-0">
+            <span class="text-[11px] sm:text-xs font-black text-red-400 truncate">Cambios {{ partidoService.equipoB().nombre }}</span>
+            <span class="text-[9px] bg-red-900/60 text-red-200 px-1.5 py-0.5 rounded font-bold shrink-0">
+              {{ partidoService.equipoB().cambios }} rest.
+            </span>
+          </div>
+          <span class="text-xs text-red-400 font-bold transition-transform duration-200 shrink-0 ml-1" [class.rotate-180]="mostrarCambiosB()">
+            ▼
+          </span>
+        </button>
+
+        <div *ngIf="mostrarCambiosB()" class="p-2.5 sm:p-3 pt-0 border-t border-red-500/20">
+          <div class="grid grid-cols-2 gap-1.5 text-[10px] mt-2">
+            <div>
+              <label class="text-[9px] text-red-400 font-bold block mb-0.5">SALE:</label>
+              <select 
+                [ngModel]="jugador_salida_B()" 
+                (ngModelChange)="jugador_salida_B.set($event)"
+                class="w-full bg-slate-800 border border-slate-700 rounded p-1 text-slate-200 text-xs">
+                <option [ngValue]="null">Seleccionar</option>
+                <option *ngFor="let j of partidoService.equipoB().jugadores" [ngValue]="j">{{ j.nombre }}</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="text-[9px] text-emerald-400 font-bold block mb-0.5">ENTRA:</label>
+              <select 
+                [ngModel]="jugador_entrada_B()" 
+                (ngModelChange)="jugador_entrada_B.set($event)"
+                class="w-full bg-slate-800 border border-slate-700 rounded p-1 text-slate-200 text-xs">
+                <option [ngValue]="null">Seleccionar</option>
+                <option *ngFor="let j of partidoService.equipoB().banca" [ngValue]="j">{{ j.nombre }}</option>
+              </select>
+            </div>
+          </div>
+
+          <button 
+            (click)="hacer_cambio('equipoB')"
+            [disabled]="!partidoService.segunda_mitad()"
+            class="w-full mt-2.5 bg-red-600 hover:bg-red-500 disabled:bg-slate-800 disabled:opacity-50 text-white font-bold py-1.5 rounded text-[10px] transition-all cursor-pointer">
+            Realizar Cambio
+          </button>
+        </div>
+      </div>
+
     </div>
 
   </div>
