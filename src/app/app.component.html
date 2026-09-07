@@ -1,5 +1,6 @@
 <div class="relative w-screen h-screen overflow-hidden bg-emerald-900 font-sans text-white select-none">
 
+  <!-- Fondo de cancha -->
   <div class="absolute inset-0 z-0 flex pointer-events-none">
     <div class="w-[10%] h-full bg-emerald-700/60"></div>
     <div class="w-[10%] h-full bg-emerald-800/60"></div>
@@ -12,231 +13,241 @@
     <div class="w-[10%] h-full bg-emerald-700/60"></div>
     <div class="w-[10%] h-full bg-emerald-800/60"></div>
 
-    <div class="absolute inset-6 border-2 border-white/80">
+    <div class="absolute inset-3 sm:inset-6 border-2 border-white/80">
       <div class="absolute left-1/2 top-0 bottom-0 w-0.5 bg-white/80 -translate-x-1/2"></div>
-      <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 border-2 border-white/80 rounded-full flex items-center justify-center">
+      <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-32 sm:w-48 h-32 sm:h-48 border-2 border-white/80 rounded-full flex items-center justify-center">
         <div class="w-2 h-2 bg-white rounded-full"></div>
       </div>
 
-      <div class="absolute left-0 top-1/2 -translate-y-1/2 w-32 h-80 border-2 border-l-0 border-white/80 flex items-center">
-        <div class="w-12 h-36 border-2 border-l-0 border-white/80"></div>
+      <div class="absolute left-0 top-1/2 -translate-y-1/2 w-20 sm:w-32 h-48 sm:h-80 border-2 border-l-0 border-white/80 flex items-center">
+        <div class="w-8 sm:w-12 h-20 sm:h-36 border-2 border-l-0 border-white/80"></div>
       </div>
-      <div class="absolute -left-4 top-1/2 -translate-y-1/2 w-4 h-24 border-2 border-r-0 border-white/80 bg-white/10"></div>
+      <div class="absolute -left-4 top-1/2 -translate-y-1/2 w-4 h-24 border-2 border-r-0 border-white/80 bg-white/10 hidden sm:block"></div>
 
-      <div class="absolute right-0 top-1/2 -translate-y-1/2 w-32 h-80 border-2 border-r-0 border-white/80 flex items-center justify-end">
-        <div class="w-12 h-36 border-2 border-r-0 border-white/80"></div>
+      <div class="absolute right-0 top-1/2 -translate-y-1/2 w-20 sm:w-32 h-48 sm:h-80 border-2 border-r-0 border-white/80 flex items-center justify-end">
+        <div class="w-8 sm:w-12 h-20 sm:h-36 border-2 border-r-0 border-white/80"></div>
       </div>
-      <div class="absolute -right-4 top-1/2 -translate-y-1/2 w-4 h-24 border-2 border-l-0 border-white/80 bg-white/10"></div>
+      <div class="absolute -right-4 top-1/2 -translate-y-1/2 w-4 h-24 border-2 border-l-0 border-white/80 bg-white/10 hidden sm:block"></div>
     </div>
   </div>
 
-  <div *ngIf="fase() === 'inicio'" class="relative z-10 w-full h-full flex flex-col items-center justify-center bg-slate-950/20 backdrop-blur-xs">
+  <!-- FASE DE INICIO -->
+  <div *ngIf="fase() === 'inicio'" class="relative z-10 w-full h-full flex flex-col items-center justify-center bg-slate-950/20 backdrop-blur-xs p-4">
     <div class="text-center space-y-6">
-      <h1 class="text-6xl font-black tracking-wider text-white drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)]">
+      <h1 class="text-4xl sm:text-6xl font-black tracking-wider text-white drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)]">
         SIMULADOR DE FÚTBOL
       </h1>
       <button 
         (click)="irASeleccion()"
-        class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xl px-12 py-4 rounded-2xl shadow-2xl hover:scale-105 transition-all cursor-pointer">
+        class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-lg sm:text-xl px-10 py-3 sm:px-12 sm:py-4 rounded-2xl shadow-2xl hover:scale-105 transition-all cursor-pointer">
         EMPEZAR
       </button>
     </div>
   </div>
 
-  <div *ngIf="fase() === 'seleccion'" class="relative z-10 w-full h-full p-6 flex flex-col justify-between bg-slate-950/20 backdrop-blur-xs">
-    <header class="text-center">
-      <h2 class="text-3xl font-black tracking-wide text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">SELECCIÓN DE PLANTILLAS</h2>
+  <!-- FASE DE SELECCIÓN -->
+  <div *ngIf="fase() === 'seleccion'" class="relative z-10 w-full h-full p-3 sm:p-6 flex flex-col justify-between bg-slate-950/20 backdrop-blur-xs overflow-y-auto sm:overflow-hidden">
+    <header class="text-center mb-2 sm:mb-0">
+      <h2 class="text-2xl sm:text-3xl font-black tracking-wide text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">SELECCIÓN DE PLANTILLAS</h2>
       <p class="text-xs text-emerald-100 mt-1 font-bold drop-shadow">Elige los 11 titulares para cada equipo</p>
     </header>
 
-    <div class="grid grid-cols-2 gap-8 my-4 flex-1 overflow-hidden">
+    <!-- Contenedor general de equipos (Columnas en móviles, Filas en pantallas medianas+) -->
+    <div class="flex flex-col sm:flex-row gap-4 my-2 sm:my-4 flex-1 overflow-hidden min-h-0">
 
-      <div class="bg-slate-950/90 border-2 border-blue-500 backdrop-blur-md rounded-2xl p-5 flex flex-col justify-between overflow-hidden shadow-2xl">
-        <div class="flex justify-between items-center mb-3 border-b border-blue-500/40 pb-2">
-          <h3 class="text-xl font-black text-blue-400">{{ partidoService.equipoA().nombre }}</h3>
-          <span class="text-sm font-black text-blue-400 tracking-wide">
+      <!-- Equipo A -->
+      <div class="bg-slate-950/90 border-2 border-blue-500 backdrop-blur-md rounded-2xl p-3 sm:p-5 flex flex-col justify-between overflow-hidden shadow-2xl flex-1 max-h-[42vh] sm:max-h-none">
+        <div class="flex justify-between items-center mb-2 sm:mb-3 border-b border-blue-500/40 pb-2">
+          <h3 class="text-base sm:text-xl font-black text-blue-400 truncate">{{ partidoService.equipoA().nombre }}</h3>
+          <span class="text-xs sm:text-sm font-black text-blue-400 tracking-wide whitespace-nowrap ml-2">
             {{ partidoService.equipoA().jugadores.length }}/11 Titulares
           </span>
         </div>
 
-        <div *ngIf="!partidoService.equipoA().plantilla_completa" class="space-y-3 overflow-y-auto pr-2 flex-1 scrollbar-thin scrollbar-thumb-blue-600/50 scrollbar-track-slate-900/50 hover:scrollbar-thumb-blue-500 rounded">
+        <div *ngIf="!partidoService.equipoA().plantilla_completa" class="space-y-2 sm:space-y-3 overflow-y-auto pr-1 sm:pr-2 flex-1 scrollbar-thin scrollbar-thumb-blue-600/50 scrollbar-track-slate-900/50 hover:scrollbar-thumb-blue-500 rounded">
           <div *ngFor="let cat of ['Portero', 'Defensa', 'Centro', 'Delantero']">
-            <h4 class="text-[11px] font-bold text-blue-300 uppercase tracking-wider mb-1 px-1 border-b border-blue-500/20">
+            <h4 class="text-[10px] sm:text-[11px] font-bold text-blue-300 uppercase tracking-wider mb-1 px-1 border-b border-blue-500/20">
               {{ cat }}s
             </h4>
-            <div class="grid grid-cols-2 gap-1.5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
               <ng-container *ngFor="let j of partidoService.equipoA().plantilla">
                 <button 
                   *ngIf="j.posicion === cat"
                   (click)="seleccionar_jugador('equipoA', j)"
                   [class]="partidoService.equipoA().jugadores.some(p => p.id === j.id) ? 'bg-blue-600 border-blue-300 text-white shadow-lg' : 'bg-slate-900 border-slate-700 text-slate-300 hover:border-blue-500/50'"
                   class="p-2 rounded-xl border text-left text-xs flex justify-between items-center transition-all cursor-pointer">
-                  <div>
-                    <p class="font-bold">{{ j.nombre }}</p>
+                  <div class="truncate pr-1">
+                    <p class="font-bold truncate">{{ j.nombre }}</p>
                     <span class="text-[10px] opacity-75">{{ j.posicion }}</span>
                   </div>
-                  <span *ngIf="j.id === partidoService.equipoA().portero_seleccionadoID" class="text-[9px] bg-amber-400 text-slate-950 px-1 py-0.5 rounded font-black">POR</span>
+                  <span *ngIf="j.id === partidoService.equipoA().portero_seleccionadoID" class="text-[9px] bg-amber-400 text-slate-950 px-1 py-0.5 rounded font-black shrink-0">POR</span>
                 </button>
               </ng-container>
             </div>
           </div>
         </div>
 
-        <div *ngIf="partidoService.equipoA().plantilla_completa" class="flex-1 flex flex-col items-center justify-center text-center my-auto">
-          <div class="w-16 h-16 rounded-full bg-blue-600 border-2 border-blue-300 flex items-center justify-center mb-3 shadow-lg">
-            <span class="text-3xl text-white font-black">✓</span>
+        <div *ngIf="partidoService.equipoA().plantilla_completa" class="flex-1 flex flex-col items-center justify-center text-center my-auto py-4">
+          <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-blue-600 border-2 border-blue-300 flex items-center justify-center mb-2 shadow-lg">
+            <span class="text-2xl sm:text-3xl text-white font-black">✓</span>
           </div>
-          <h4 class="text-2xl font-black text-blue-300 tracking-wider">EQUIPO LISTO</h4>
+          <h4 class="text-xl sm:text-2xl font-black text-blue-300 tracking-wider">EQUIPO LISTO</h4>
           <p class="text-xs text-blue-200 mt-1">Alineación titular completada</p>
         </div>
 
         <button 
           *ngIf="!partidoService.equipoA().plantilla_completa"
           (click)="confirmar_plantilla('equipoA')"
-          class="w-full mt-3 bg-blue-600 hover:bg-blue-500 text-white text-xs font-black py-3 rounded-xl transition-all cursor-pointer shadow-lg">
+          class="w-full mt-2 sm:mt-3 bg-blue-600 hover:bg-blue-500 text-white text-xs font-black py-2.5 sm:py-3 rounded-xl transition-all cursor-pointer shadow-lg">
           Confirmar equipo
         </button>
       </div>
 
-      <div class="bg-slate-950/90 border-2 border-red-500 backdrop-blur-md rounded-2xl p-5 flex flex-col justify-between overflow-hidden shadow-2xl">
-        <div class="flex justify-between items-center mb-3 border-b border-red-500/40 pb-2">
-          <h3 class="text-xl font-black text-red-400">{{ partidoService.equipoB().nombre }}</h3>
-          <span class="text-sm font-black text-red-400 tracking-wide">
+      <!-- Equipo B -->
+      <div class="bg-slate-950/90 border-2 border-red-500 backdrop-blur-md rounded-2xl p-3 sm:p-5 flex flex-col justify-between overflow-hidden shadow-2xl flex-1 max-h-[42vh] sm:max-h-none">
+        <div class="flex justify-between items-center mb-2 sm:mb-3 border-b border-red-500/40 pb-2">
+          <h3 class="text-base sm:text-xl font-black text-red-400 truncate">{{ partidoService.equipoB().nombre }}</h3>
+          <span class="text-xs sm:text-sm font-black text-red-400 tracking-wide whitespace-nowrap ml-2">
             {{ partidoService.equipoB().jugadores.length }}/11 Titulares
           </span>
         </div>
 
-        <div *ngIf="!partidoService.equipoB().plantilla_completa" class="space-y-3 overflow-y-auto pr-2 flex-1 scrollbar-thin scrollbar-thumb-red-600/50 scrollbar-track-slate-900/50 hover:scrollbar-thumb-red-500 rounded">
+        <div *ngIf="!partidoService.equipoB().plantilla_completa" class="space-y-2 sm:space-y-3 overflow-y-auto pr-1 sm:pr-2 flex-1 scrollbar-thin scrollbar-thumb-red-600/50 scrollbar-track-slate-900/50 hover:scrollbar-thumb-red-500 rounded">
           <div *ngFor="let cat of ['Portero', 'Defensa', 'Centro', 'Delantero']">
-            <h4 class="text-[11px] font-bold text-red-300 uppercase tracking-wider mb-1 px-1 border-b border-red-500/20">
+            <h4 class="text-[10px] sm:text-[11px] font-bold text-red-300 uppercase tracking-wider mb-1 px-1 border-b border-red-500/20">
               {{ cat }}s
             </h4>
-            <div class="grid grid-cols-2 gap-1.5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
               <ng-container *ngFor="let j of partidoService.equipoB().plantilla">
                 <button 
                   *ngIf="j.posicion === cat"
                   (click)="seleccionar_jugador('equipoB', j)"
                   [class]="partidoService.equipoB().jugadores.some(p => p.id === j.id) ? 'bg-red-600 border-red-300 text-white shadow-lg' : 'bg-slate-900 border-slate-700 text-slate-300 hover:border-red-500/50'"
                   class="p-2 rounded-xl border text-left text-xs flex justify-between items-center transition-all cursor-pointer">
-                  <div>
-                    <p class="font-bold">{{ j.nombre }}</p>
+                  <div class="truncate pr-1">
+                    <p class="font-bold truncate">{{ j.nombre }}</p>
                     <span class="text-[10px] opacity-75">{{ j.posicion }}</span>
                   </div>
-                  <span *ngIf="j.id === partidoService.equipoB().portero_seleccionadoID" class="text-[9px] bg-amber-400 text-slate-950 px-1 py-0.5 rounded font-black">POR</span>
+                  <span *ngIf="j.id === partidoService.equipoB().portero_seleccionadoID" class="text-[9px] bg-amber-400 text-slate-950 px-1 py-0.5 rounded font-black shrink-0">POR</span>
                 </button>
               </ng-container>
             </div>
           </div>
         </div>
 
-        <div *ngIf="partidoService.equipoB().plantilla_completa" class="flex-1 flex flex-col items-center justify-center text-center my-auto">
-          <div class="w-16 h-16 rounded-full bg-red-600 border-2 border-red-300 flex items-center justify-center mb-3 shadow-lg">
-            <span class="text-3xl text-white font-black">✓</span>
+        <div *ngIf="partidoService.equipoB().plantilla_completa" class="flex-1 flex flex-col items-center justify-center text-center my-auto py-4">
+          <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-red-600 border-2 border-red-300 flex items-center justify-center mb-2 shadow-lg">
+            <span class="text-2xl sm:text-3xl text-white font-black">✓</span>
           </div>
-          <h4 class="text-2xl font-black text-red-300 tracking-wider">EQUIPO LISTO</h4>
+          <h4 class="text-xl sm:text-2xl font-black text-red-300 tracking-wider">EQUIPO LISTO</h4>
           <p class="text-xs text-red-200 mt-1">Alineación titular completada</p>
         </div>
 
         <button 
           *ngIf="!partidoService.equipoB().plantilla_completa"
           (click)="confirmar_plantilla('equipoB')"
-          class="w-full mt-3 bg-red-600 hover:bg-red-500 text-white text-xs font-black py-3 rounded-xl transition-all cursor-pointer shadow-lg">
+          class="w-full mt-2 sm:mt-3 bg-red-600 hover:bg-red-500 text-white text-xs font-black py-2.5 sm:py-3 rounded-xl transition-all cursor-pointer shadow-lg">
           Confirmar equipo
         </button>
       </div>
 
     </div>
 
-    <div class="text-center">
+    <div class="text-center mt-2 sm:mt-0">
       <button 
         (click)="confirmarYComenzar()"
-        class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black px-10 py-3 rounded-xl shadow-2xl transition-all text-sm cursor-pointer">
+        class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black px-8 sm:px-10 py-2.5 sm:py-3 rounded-xl shadow-2xl transition-all text-xs sm:text-sm cursor-pointer">
         IR AL PARTIDO
       </button>
     </div>
   </div>
 
+  <!-- FASE DE PARTIDO -->
   <div *ngIf="fase() === 'partido'" class="relative z-10 w-full h-full">
 
-    <div class="absolute top-8 left-8 z-30 bg-slate-950/85 backdrop-blur border border-slate-700/80 p-3 rounded-2xl shadow-2xl flex items-center gap-4">
-      <div class="flex items-center gap-2 text-base font-black">
-        <span class="text-blue-400">{{ partidoService.equipoA().nombre }}</span>
-        <span class="bg-slate-800 px-2.5 py-0.5 rounded text-white">{{ partidoService.equipoA().goles }}</span>
+    <!-- Marcador Superior -->
+    <div class="absolute top-3 left-3 sm:top-8 sm:left-8 z-30 bg-slate-950/85 backdrop-blur border border-slate-700/80 p-2 sm:p-3 rounded-2xl shadow-2xl flex items-center gap-2 sm:gap-4">
+      <div class="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-base font-black">
+        <span class="text-blue-400 max-w-[70px] sm:max-w-none truncate">{{ partidoService.equipoA().nombre }}</span>
+        <span class="bg-slate-800 px-2 sm:px-2.5 py-0.5 rounded text-white">{{ partidoService.equipoA().goles }}</span>
         <span class="text-slate-500">-</span>
-        <span class="bg-slate-800 px-2.5 py-0.5 rounded text-white">{{ partidoService.equipoB().goles }}</span>
-        <span class="text-red-400">{{ partidoService.equipoB().nombre }}</span>
+        <span class="bg-slate-800 px-2 sm:px-2.5 py-0.5 rounded text-white">{{ partidoService.equipoB().goles }}</span>
+        <span class="text-red-400 max-w-[70px] sm:max-w-none truncate">{{ partidoService.equipoB().nombre }}</span>
       </div>
 
-      <div class="h-6 w-px bg-slate-700"></div>
+      <div class="h-5 sm:h-6 w-px bg-slate-700"></div>
 
-      <div class="text-center min-w-[50px]">
-        <div class="text-[9px] uppercase tracking-wider text-slate-400 font-bold">
+      <div class="text-center min-w-[40px] sm:min-w-[50px]">
+        <div class="text-[8px] sm:text-[9px] uppercase tracking-wider text-slate-400 font-bold">
           {{ partidoService.partido_finalizado() ? 'FIN' : (partidoService.segunda_mitad() ? '2T' : '1T') }}
         </div>
-        <div class="text-lg font-mono font-bold text-amber-400 leading-none">
+        <div class="text-sm sm:text-lg font-mono font-bold text-amber-400 leading-none">
           {{ partidoService.tiempo_segundos() }}'
         </div>
       </div>
     </div>
 
+    <!-- Botón adelantar tiempo -->
     <button 
       *ngIf="partidoService.tiempo_segundos() > 0 && !partidoService.segunda_mitad() && !partidoService.partido_finalizado() && partidoService.tiempo_segundos() < 45"
       (click)="adelantar_tiempo()"
-      class="absolute top-8 right-8 z-30 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs px-4 py-2.5 rounded-xl transition-all shadow-2xl cursor-pointer flex items-center gap-1.5 border border-amber-300">
+      class="absolute top-3 right-3 sm:top-8 sm:right-8 z-30 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-[10px] sm:text-xs px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl transition-all shadow-2xl cursor-pointer flex items-center gap-1.5 border border-amber-300">
       Adelantar al 2º Tiempo
     </button>
 
-    <div class="absolute inset-0 z-30 flex items-center justify-center pointer-events-none">
-
+    <!-- Botones de inicio de tiempo en el centro -->
+    <div class="absolute inset-0 z-30 flex items-center justify-center pointer-events-none p-4">
       <button 
         *ngIf="!partidoService.en_ejecucion() && !partidoService.segunda_mitad() && partidoService.tiempo_segundos() === 0 && !partidoService.partido_finalizado()"
         (click)="iniciar_primer_tiempo()"
-        class="pointer-events-auto bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xl px-10 py-5 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.8)] border-2 border-white hover:scale-110 transition-all cursor-pointer animate-bounce">
+        class="pointer-events-auto bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-base sm:text-xl px-8 sm:px-10 py-4 sm:py-5 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.8)] border-2 border-white hover:scale-110 transition-all cursor-pointer animate-bounce text-center">
         EMPEZAR 1º TIEMPO
       </button>
 
       <button 
         *ngIf="!partidoService.en_ejecucion() && partidoService.tiempo_segundos() >= 45 && !partidoService.segunda_mitad() && !partidoService.partido_finalizado()"
         (click)="empezar_segunda_mitad()"
-        class="pointer-events-auto bg-blue-500 hover:bg-blue-400 text-white font-black text-xl px-10 py-5 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.8)] border-2 border-white hover:scale-110 transition-all cursor-pointer animate-bounce">
+        class="pointer-events-auto bg-blue-500 hover:bg-blue-400 text-white font-black text-base sm:text-xl px-8 sm:px-10 py-4 sm:py-5 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.8)] border-2 border-white hover:scale-110 transition-all cursor-pointer animate-bounce text-center">
         EMPEZAR 2º TIEMPO
       </button>
-
     </div>
 
+    <!-- Posicionamiento jugadores equipo A -->
     <div 
       *ngFor="let j of partidoService.equipoA().jugadores; let i = index"
       [style.left]="getPosicionEstilizada(j.posicion, i, true).left"
       [style.top]="getPosicionEstilizada(j.posicion, i, true).top"
       class="absolute z-20 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
-      <div class="w-7 h-7 rounded-full bg-blue-600 border-2 border-white shadow-lg flex items-center justify-center text-[10px] font-black">
+      <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-blue-600 border-2 border-white shadow-lg flex items-center justify-center text-[9px] sm:text-[10px] font-black">
         {{ j.posicion === 'Portero' ? 'P' : (i + 1) }}
       </div>
-      <span class="mt-0.5 bg-slate-950/80 text-[9px] px-1.5 py-0.2 rounded text-blue-200 font-semibold max-w-[75px] truncate">
+      <span class="mt-0.5 bg-slate-950/80 text-[8px] sm:text-[9px] px-1.5 py-0.2 rounded text-blue-200 font-semibold max-w-[65px] sm:max-w-[75px] truncate">
         {{ j.nombre.split(' ')[0] }}
       </span>
     </div>
 
+    <!-- Posicionamiento jugadores equipo B -->
     <div 
       *ngFor="let j of partidoService.equipoB().jugadores; let i = index"
       [style.left]="getPosicionEstilizada(j.posicion, i, false).left"
       [style.top]="getPosicionEstilizada(j.posicion, i, false).top"
       class="absolute z-20 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
-      <div class="w-7 h-7 rounded-full bg-red-600 border-2 border-white shadow-lg flex items-center justify-center text-[10px] font-black">
+      <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-red-600 border-2 border-white shadow-lg flex items-center justify-center text-[9px] sm:text-[10px] font-black">
         {{ j.posicion === 'Portero' ? 'P' : (i + 1) }}
       </div>
-      <span class="mt-0.5 bg-slate-950/80 text-[9px] px-1.5 py-0.2 rounded text-red-200 font-semibold max-w-[75px] truncate">
+      <span class="mt-0.5 bg-slate-950/80 text-[8px] sm:text-[9px] px-1.5 py-0.2 rounded text-red-200 font-semibold max-w-[65px] sm:max-w-[75px] truncate">
         {{ j.nombre.split(' ')[0] }}
       </span>
     </div>
 
-    <div class="absolute bottom-8 left-8 z-30 bg-slate-950/90 backdrop-blur border border-blue-600/40 rounded-2xl w-64 shadow-2xl overflow-hidden transition-all">
+    <!-- Panel de Cambios - Equipo A (Esquina inferior izquierda o apilado en móvil) -->
+    <div class="absolute bottom-3 left-3 sm:bottom-8 sm:left-8 z-30 bg-slate-950/90 backdrop-blur border border-blue-600/40 rounded-2xl w-56 sm:w-64 shadow-2xl overflow-hidden transition-all">
       <button 
         (click)="mostrarCambiosA.set(!mostrarCambiosA())"
-        class="w-full p-3 flex justify-between items-center text-left hover:bg-blue-900/20 transition-colors cursor-pointer">
-        <div class="flex items-center gap-2">
-          <span class="text-xs font-black text-blue-400">Cambios {{ partidoService.equipoA().nombre }}</span>
-          <span class="text-[9px] bg-blue-900/60 text-blue-200 px-1.5 py-0.5 rounded font-bold">
+        class="w-full p-2.5 sm:p-3 flex justify-between items-center text-left hover:bg-blue-900/25 transition-colors cursor-pointer">
+        <div class="flex items-center gap-1.5 sm:gap-2">
+          <span class="text-xs font-black text-blue-400 truncate max-w-[120px] sm:max-w-none">Cambios {{ partidoService.equipoA().nombre }}</span>
+          <span class="text-[9px] bg-blue-900/60 text-blue-200 px-1.5 py-0.5 rounded font-bold shrink-0">
             {{ partidoService.equipoA().cambios }} rest.
           </span>
         </div>
@@ -245,14 +256,14 @@
         </span>
       </button>
 
-      <div *ngIf="mostrarCambiosA()" class="p-3 pt-0 border-t border-blue-500/20">
+      <div *ngIf="mostrarCambiosA()" class="p-2.5 sm:p-3 pt-0 border-t border-blue-500/20">
         <div class="grid grid-cols-2 gap-1.5 text-[10px] mt-2">
           <div>
             <label class="text-[9px] text-red-400 font-bold block mb-0.5">SALE:</label>
             <select 
               [ngModel]="jugador_salida_A()" 
               (ngModelChange)="jugador_salida_A.set($event)"
-              class="w-full bg-slate-800 border border-slate-700 rounded p-1 text-slate-200">
+              class="w-full bg-slate-800 border border-slate-700 rounded p-1 text-slate-200 text-xs">
               <option [ngValue]="null">Seleccionar</option>
               <option *ngFor="let j of partidoService.equipoA().jugadores" [ngValue]="j">{{ j.nombre }}</option>
             </select>
@@ -263,7 +274,7 @@
             <select 
               [ngModel]="jugador_entrada_A()" 
               (ngModelChange)="jugador_entrada_A.set($event)"
-              class="w-full bg-slate-800 border border-slate-700 rounded p-1 text-slate-200">
+              class="w-full bg-slate-800 border border-slate-700 rounded p-1 text-slate-200 text-xs">
               <option [ngValue]="null">Seleccionar</option>
               <option *ngFor="let j of partidoService.equipoA().banca" [ngValue]="j">{{ j.nombre }}</option>
             </select>
@@ -279,13 +290,14 @@
       </div>
     </div>
 
-    <div class="absolute bottom-8 right-8 z-30 bg-slate-950/90 backdrop-blur border border-red-600/40 rounded-2xl w-64 shadow-2xl overflow-hidden transition-all">
+    <!-- Panel de Cambios - Equipo B (Esquina inferior derecha o apilado en móvil) -->
+    <div class="absolute bottom-3 right-3 sm:bottom-8 sm:right-8 z-30 bg-slate-950/90 backdrop-blur border border-red-600/40 rounded-2xl w-56 sm:w-64 shadow-2xl overflow-hidden transition-all">
       <button 
         (click)="mostrarCambiosB.set(!mostrarCambiosB())"
-        class="w-full p-3 flex justify-between items-center text-left hover:bg-red-900/20 transition-colors cursor-pointer">
-        <div class="flex items-center gap-2">
-          <span class="text-xs font-black text-red-400">Cambios {{ partidoService.equipoB().nombre }}</span>
-          <span class="text-[9px] bg-red-900/60 text-red-200 px-1.5 py-0.5 rounded font-bold">
+        class="w-full p-2.5 sm:p-3 flex justify-between items-center text-left hover:bg-red-900/25 transition-colors cursor-pointer">
+        <div class="flex items-center gap-1.5 sm:gap-2">
+          <span class="text-xs font-black text-red-400 truncate max-w-[120px] sm:max-w-none">Cambios {{ partidoService.equipoB().nombre }}</span>
+          <span class="text-[9px] bg-red-900/60 text-red-200 px-1.5 py-0.5 rounded font-bold shrink-0">
             {{ partidoService.equipoB().cambios }} rest.
           </span>
         </div>
@@ -294,14 +306,14 @@
         </span>
       </button>
 
-      <div *ngIf="mostrarCambiosB()" class="p-3 pt-0 border-t border-red-500/20">
+      <div *ngIf="mostrarCambiosB()" class="p-2.5 sm:p-3 pt-0 border-t border-red-500/20">
         <div class="grid grid-cols-2 gap-1.5 text-[10px] mt-2">
           <div>
             <label class="text-[9px] text-red-400 font-bold block mb-0.5">SALE:</label>
             <select 
               [ngModel]="jugador_salida_B()" 
               (ngModelChange)="jugador_salida_B.set($event)"
-              class="w-full bg-slate-800 border border-slate-700 rounded p-1 text-slate-200">
+              class="w-full bg-slate-800 border border-slate-700 rounded p-1 text-slate-200 text-xs">
               <option [ngValue]="null">Seleccionar</option>
               <option *ngFor="let j of partidoService.equipoB().jugadores" [ngValue]="j">{{ j.nombre }}</option>
             </select>
@@ -312,7 +324,7 @@
             <select 
               [ngModel]="jugador_entrada_B()" 
               (ngModelChange)="jugador_entrada_B.set($event)"
-              class="w-full bg-slate-800 border border-slate-700 rounded p-1 text-slate-200">
+              class="w-full bg-slate-800 border border-slate-700 rounded p-1 text-slate-200 text-xs">
               <option [ngValue]="null">Seleccionar</option>
               <option *ngFor="let j of partidoService.equipoB().banca" [ngValue]="j">{{ j.nombre }}</option>
             </select>
